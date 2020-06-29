@@ -1,0 +1,8 @@
+{
+    "window.zoomLevel": 1,
+    "explorer.confirmDelete": false,
+    "eslint.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+}
