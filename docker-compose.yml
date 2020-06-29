@@ -4,6 +4,9 @@ services:
         container_name: node-services
         restart: always
         build: .
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
         ports:
             - 8081:3000
         links:
