@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { genSaltSync, hashSync, compareSync } = require('bcrypt');
+const fileUpload = require('express-fileupload');
 const User = require('./models/user.model');
 
 mongoose.connect('mongodb://mongo/my_database', {
@@ -11,8 +12,10 @@ const app = express();
 
 const port = 3000;
 
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.set('view engine', 'pug');
 app.set('views', './views');
 
@@ -95,6 +98,62 @@ app.post('/register', (req, res) => {
             res.redirect('/login');
         });
     });
+});
+
+app.get('/book/create', (req, res) => {
+    res.render('create_book');
+});
+
+app.post('/book/create', (req, res) => {
+    const errors = [];
+    const { name, author } = req.body;
+    if (!req.files || Object.keys(req.files).length === 0) {
+        errors.push('Have no image uploaded!');
+    }
+    if (!name) {
+        errors.push('Have no book name!');
+    }
+    if (!author) {
+        errors.push('Have no book author!');
+    }
+    if (errors.length) {
+        res.render('create_book', {
+            errors,
+            name,
+            author,
+        });
+        return;
+    }
+    console.log(req.files.image);
+    // if (!email) {
+    //     errors.push('Have no email!');
+    // }
+    // if (!password1 || !password2) {
+    //     errors.push('Have no password!');
+    // }
+    // if (password1 !== password2) {
+    //     errors.push('Passwords are not correct!');
+    // }
+    // if (errors.length) {
+    //     res.render('register', {
+    //         errors,
+    //         email,
+    //     });
+    //     return;
+    // }
+    // User.findOne({ email }, '_id', (err, user) => {
+    //     if (user) {
+    //         res.render('register', {
+    //             errors: ['Email already be registed!'],
+    //             email,
+    //         });
+    //         return;
+    //     }
+    //     const salt = genSaltSync(10);
+    //     User.create({ email, password: hashSync(password1, salt) }).then(() => {
+    //         res.redirect('/login');
+    //     });
+    // });
 });
 
 app.listen(port, () => console.log('Server is listening on port: ', port));

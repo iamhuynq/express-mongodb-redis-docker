@@ -1,0 +1,15 @@
+extends ../layouts/main
+block content
+    h1(class="text-center mt-5") Create Book
+    form(class="form-group w-25 mx-auto", action="/book/create", method="POST", enctype="multipart/form-data")
+        if errors
+            each error in errors
+                .alert.alert-danger=error
+        label(for='exampleInputEmail1') Book name
+        input#exampleInputEmail1.form-control(type='text', name="name", value=name)
+        label(for='exampleInputPassword1') Book author
+        input#exampleInputPassword1.form-control(type='text', name="author", value=author)
+        label(for='exampleInputPassword2') Book image
+        input#exampleInputPassword2.form-control-file(type='file', name="image")
+        .w-100.text-center.mt-3
+            button.btn.btn-primary(type='submit') Submit
