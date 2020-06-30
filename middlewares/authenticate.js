@@ -9,9 +9,10 @@ const authenticate = (req, res, next) => {
         if (user) {
             res.locals.userEmail = req.signedCookies.userEmail;
             next();
+        } else {
+            res.redirect('/login');
+            return;
         }
-        res.redirect('/login');
-        return;
     });
 };
 
