@@ -17,6 +17,7 @@
       "prettier/prettier": "error",
       "no-console": "off",
       "indent": "off",
-      "no-useless-return": "off"
+      "no-useless-return": "off",
+      "comma-dangle": "off"
     }
   }

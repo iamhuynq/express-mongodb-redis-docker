@@ -1,4 +1,15 @@
-extends ../layouts/login
+extends ../layouts/main
 block content
+    if userEmail
+        h1=userEmail
+    .container.mt-3
+        .row.d-flex.flex-wrap
+            each book in books
+                .col-md-3.col-sm-6.mb-2
+                    .card.h-100
+                        img.card-img-top(src=book.image, alt='Card image cap')
+                        .card-body
+                            h5.card-title=book.name
+                            p.card-text=book.author
 
 
