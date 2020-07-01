@@ -1,19 +1,10 @@
-const User = require('../models/user.model');
-
 const authenticate = (req, res, next) => {
-    if (!req.signedCookies.userEmail) {
+    if (!req.session.email) {
         res.redirect('/login');
         return;
     }
-    User.findOne({ email: req.signedCookies.userEmail }, '_id', (err, user) => {
-        if (user) {
-            res.locals.userEmail = req.signedCookies.userEmail;
-            next();
-        } else {
-            res.redirect('/login');
-            return;
-        }
-    });
+    res.locals.email = req.session.email;
+    next();
 };
 
 module.exports = authenticate;

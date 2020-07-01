@@ -1,8 +1,6 @@
 extends ../layouts/main
 block content
     .container.mt-3
-        if userEmail
-            h6=userEmail
         .row.d-flex.flex-wrap
             each book in books
                 .col-md-3.col-sm-6.mb-2

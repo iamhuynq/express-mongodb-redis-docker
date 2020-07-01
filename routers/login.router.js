@@ -14,9 +14,7 @@ router.post('/', validateLogin, (req, res) => {
         if (user) {
             const check = compareSync(password, user.password);
             if (check) {
-                res.cookie('userEmail', user.email, {
-                    signed: true,
-                });
+                req.session.email = user.email;
                 res.redirect('/');
             }
             res.render('login', {

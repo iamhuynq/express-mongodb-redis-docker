@@ -11,8 +11,16 @@ services:
             - 8081:3000
         links:
             - mongo
+        depends_on:
+            - redis
     mongo:
         container_name: mongo-services
         image: mongo
         ports:
             - 27017:27017
+    redis:
+        image: redis:alpine
+        container_name: session
+        ports:
+            - 6379:6379
+            
